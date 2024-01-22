@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block title %}Datos envío{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card-custom">
+                <div class="card-header">
+                    <h4 id="tituloSeguimiento" class="text-dark">Seguimiento pedido</h4>
+                </div>
+                <div class="card-body">
+                    <form action="{% url 'seguimiento' %}" method="POST">
+                        {% csrf_token %}
+                        <div class="form-group">
+                            <label for="codigo_seguimiento" class="label-custom">Código de Seguimiento:</label>
+                            <input type="text" class="form-control" id="codigo_seguimiento" name="codigo_seguimiento"
+                                required>
+                        </div>
+                </div>
+                <div class="card-footer text-center">
+                    <button type="submit" class="btn btn-outline-dark" id="btn-estado">Consultar estado</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% if estado|default:'' == 'En preparacion' or estado|default:'' == 'En camino' or estado|default:'' == 'Completado'%}
+        <div class="col-md-6 mx-auto mt-4">
+            <div class="card-custom success">
+                <div class="card-header">
+                    <h4 id="tituloSeguimiento" class="text-dark">Respuesta consulta</h4>
+                </div>
+                <div class="card-body">
+                    <p><strong>Estado pedido: </strong>{{ estado }}</p>
+                    <p><strong>Dirección envío pedido: </strong>{{ direccion_destino }}</p>
+                </div>
+            </div>
+        </div>
+        {% elif status == 200 %}
+        <div class="col-md-6 mx-auto mt-4">
+            <div class="card-custom success">
+                <div class="card-header">
+                    <h4 id="tituloSeguimiento" class="text-dark">Respuesta consulta</h4>
+                </div>
+                <div class="card-body">
+                    <ul>
+                        <li>Código de Seguimiento: {{ result.solicitud.codigo_seguimiento }}</li>
+                        <li>Tipo: {{ result.solicitud.tipo }}</li>
+                        <li>Nombre de Origen: {{ result.solicitud.nombre_origen }}</li>
+                        <li>Dirección de Origen: {{ result.solicitud.direccion_origen }}</li>
+                        <li>Nombre de Destino: {{ result.solicitud.nombre_destino }}</li>
+                        <li>Dirección de Destino: {{ result.solicitud.direccion_destino }}</li>
+                        <li>Comentario: {{ result.solicitud.comentario }}</li>
+                        <li>Estado de la Solicitud: {{ result.solicitud.estado }}</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

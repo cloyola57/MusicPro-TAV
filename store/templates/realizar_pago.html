@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realizar Pago</title>
+</head>
+<body>
+    <h1>Realizar Pago</h1>
+    <!-- <p>URL de pago: <a href="{{ url_pago }}" target="_blank">{{ url_pago }}</a></p> -->
+    <p>Estás siendo redirigido a la plataforma de pago. Por favor, espera...</p>
+    <!-- Agrega un formulario oculto para enviar el token -->
+    <form id="transbankForm" action="{{ url_pago }}" method="POST">
+    <input type="hidden" name="token_ws" value="{{ token }}">
+    </form>
+
+    <!-- Agrega un script para enviar el formulario automáticamente al cargar la página -->
+    <script>
+        document.getElementById('transbankForm').submit();
+    </script>
+</body>
+</html>
+
+
+{% endblock %}

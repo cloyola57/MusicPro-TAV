@@ -1,0 +1,93 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+<body>
+
+    <div class="container mt-5 mb-5">
+      <div class="row">
+          <div class="col-md-6 mx-auto">
+              <div class="card text-bg-light mb-3">
+                  <div class="card-header">
+                    <h1>¡Transacción Exitosa!</h1>
+                    <p>Gracias por realizar el pago.</p>
+                  </div>
+                  <div class="card-body">
+                    <form action="/check-out" method="POST">
+                      {% csrf_token %}
+                      <div class="form-group">
+                        <label for="">Email</label>
+                        <input type="text" name="address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                        
+                      </div>
+                      <div class="form-group">
+                          <label for="">Celular</label>
+                          <input type="text" name="phone" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                        </div>
+      
+                        <input type="submit" class="btn float-right btn-outline-success col-lg-6" value="Check out">
+                  </form>  
+                  </div>
+              </div>
+          </div>
+        </div>
+      </div>
+
+
+    <div class="container mt-5">
+        <div class="card text-bg-light">
+          <div class="card-header">
+            <h2 class="card-title text-center">Orden de Compra</h2>
+          </div>
+          <div class="card-body">
+            <div class="row mb-3">
+              <div class="col-sm-6">
+                <p><strong>Número de orden:</strong> 148</p>
+              </div>
+              <div class="col-sm-6 text-right">
+                <p><strong>Número de tarjeta:</strong>** ** ** 7763</p>
+              </div>
+            </div>
+            <p><strong>Fecha:</strong> 22 de enero de 2024</p>
+            <table class="table">
+              <thead>
+                  <tr>
+                      <th>ID</th>
+                      <th>Imagen</th>
+                      <th>Producto</th>
+                      <th>Precio</th>
+                      <th>Cantidad</th>
+                      <th>Total</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  {% for producto in products %}
+                  <tr>
+                      <td>{{forloop.counter}}</td>
+                      <td><img style="height: 80px;" class="rounded-circle" src="{{producto.image.url}}" alt=""></td>
+                      <td>{{producto.name}}</td>
+                      <td>{{producto.price|currency}}</td>
+                      <td>{{producto|cart_quantity:request.session.cart}}</td>
+                      <td>{{producto|price_total:request.session.cart|currency}}</td>
+                  </tr>
+  
+                  {% endfor %}
+              
+              </tbody>
+  
+              <tfoot>
+                  <tr>
+                      <th colspan="4"></th>
+                      <th class="" colspan="">Total</th>
+                      <th>{{products|total_cart_price:request.session.cart|currency}}</th>
+                  </tr>
+              </tfoot>
+          </table>
+        </div>
+      </div>
+
+</body>
+
+{% endblock %}

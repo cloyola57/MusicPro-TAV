@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+<body>
+<div class="container mt-5">
+    <h1 class="mb-4">Lista de Productos</h1>
+
+    <div class="row row-cols-1 row-cols-md-4 g-4">
+        {% for producto in productos %}
+            <div class="col">
+                <div class="card" style="width: 100%;">
+                    <img src="{{ producto.asset }}" class="card-img-top" alt="{{ producto.nombre }}">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ producto.nombre }}</h5>
+                        <p class="card-text"><strong>Código:</strong> {{ producto.codigo }}</p>
+                        <p class="card-text"><strong>Descripción:</strong> {{ producto.descripcion }}</p>
+                        <p class="card-text"><strong>Precio:</strong> ${{ producto.precio }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+</body>
+
+
+{% endblock %}

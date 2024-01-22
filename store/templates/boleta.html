@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% load cart %}
+{% load custom_filter %}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Music Pro - Orden de Compra</title>
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">
+    <img src="/path-to-your-logo.png" alt="Music Pro Company" style="height: 40px;">
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Carrito</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Seguimiento</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div class="container mt-5">
+  <h1 class="text-center mb-4">Music Pro</h1>
+  <div class="card">
+    <div class="card-body">
+      <h2 class="card-title text-center">Orden de Compra</h2>
+      <div class="row mb-3">
+        <div class="col-sm-6">
+          <p><strong>Número de orden:</strong> 148</p>
+        </div>
+        <div class="col-sm-6 text-right">
+          <p><strong>Número de tarjeta:</strong>**** **** **** {{ card_number }}</p>
+        </div>
+      </div>
+      <p class="text-center"><strong>Fecha:</strong> 17 de enero de 2024</p>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nombre producto</th>
+            <th>Cantidad</th>
+            <th>Precio Unitario</th>
+            <th>Sub Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Bajo</td>
+            <td>1</td>
+            <td>$359,990</td>
+            <td>$359,990</td>
+          </tr>
+        </tbody>
+      </table>
+      <p class="text-right"><strong>Total Compra:</strong> $359,990</p>
+      <div class="text-center">
+        <button href="{% url 'store' %}" class="btn btn-outline-success border rounded  col-lg-4 ">Volver a la Tienda</button>
+    </div>
+  </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+
+
+
+{% endblock %}
