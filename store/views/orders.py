@@ -16,7 +16,10 @@ import requests
 from django.http import JsonResponse
 from django.http import HttpResponse
 import json
-
+import requests
+from django.http import HttpResponse
+from django.contrib import messages
+import logging
 
 
 class OrderView(View):
@@ -225,3 +228,20 @@ def post_transporte(request):
 
 
 
+def buscar_seguimiento(request):
+    resultado_api = None
+
+    if request.method == 'POST':
+        # Obtener el código de seguimiento ingresado por el usuario desde el formulario
+        codigo_seguimiento = request.POST.get('codigo_seguimiento')
+
+        # Hacer la solicitud a la API utilizando el código de seguimiento
+        api_url = f'http://10.155.61.4:8000/api/v1/solicitud/{codigo_seguimiento}'
+        response = requests.get(api_url)
+
+        # Verificar si la solicitud fue exitosa (código de estado 200)
+        if response.status_code == 200:
+            # Parsear la respuesta JSON
+            resultado_api = response.json()
+
+    return render(request, 'buscar_seguimiento.html', {'resultado_api': resultado_api})

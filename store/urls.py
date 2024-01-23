@@ -6,7 +6,7 @@ from .views.signup import Signup
 from .views.login import Login , logout
 from .views.cart import Cart, Exito
 from .views.checkout import CheckOut
-from .views.orders import OrderView, post_bodega, realizar_pago, bodega, seguimiento, post_transporte
+from .views.orders import OrderView, post_bodega, realizar_pago, bodega, seguimiento, post_transporte, buscar_seguimiento
 from .middlewares.auth import  auth_middleware
 
 
@@ -24,6 +24,7 @@ urlpatterns = [
     path('bodega_musicpro', bodega, name='bodega'),
     path('seguimiento_musicpro', seguimiento, name='seguimiento'), 
     path('post_bodega', post_bodega,name='post_bodega' ),
-    path('post_transporte', post_transporte, name='post_transporte')
+    path('post_transporte', post_transporte, name='post_transporte'),
+    path('buscar_seguimiento', buscar_seguimiento, name='buscar_seguimiento'), 
 
 ]

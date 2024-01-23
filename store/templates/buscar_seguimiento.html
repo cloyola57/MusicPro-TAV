@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Datos envío{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-6 mx-auto">
+            <div class="card-custom">
+                <div class="card-header">
+                    <h4 id="tituloSeguimiento" class="text-dark">Seguimiento pedido</h4>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'buscar_seguimiento' %}">
+                        {% csrf_token %}
+                        <label for="codigo_seguimiento">Código de Seguimiento:</label>
+                        <input type="text" id="codigo_seguimiento" name="codigo_seguimiento" required>
+                        <button type="submit">Buscar</button>
+                    </form>
+                
+                    {% if resultado_api %}
+                        <!-- Mostrar resultados de la búsqueda -->
+                        <h2>Resultado de la Búsqueda</h2>
+                        <p>Codigo de seguimiento: {{ resultado_api.codigo_seguimiento }}</p>
+                        <p>Dirección Origen: {{ resultado_api.direccion_origen }}</p>
+                        <p>Persona Destino: {{ resultado_api.persona_destino }}</p>
+                        <p>Dirección Destino: {{ resultado_api.direccion_destino }}</p>
+                        <p>Descripción: {{ resultado_api.descripcion }}</p>
+                        <p>Estado: {{ resultado_api.estado }}</p>
+                        
+                        <!-- Agrega más campos según la estructura de tu respuesta JSON -->
+                    {% endif %}
+                </div>
+                
+    </div>
+</div>
+{% endblock %}
+
